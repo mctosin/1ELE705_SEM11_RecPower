@@ -10,6 +10,64 @@ extern "C"
 #include <stdlib.h>
 }
 
+#define tolerance 1e-10
+TEST(TestCaseName, TestName) {
+    EXPECT_EQ(1, 1);
+    EXPECT_TRUE(true);
+    srand((unsigned int)time(NULL));
+}
+
+TEST(TestRecPower, BaseEqualZeroExpoentNonZeroCheckReturnValue) {
+    long double base = 0, exp = 617;
+    
+
+    EXPECT_NEAR(recpower(base, exp), 0.0, tolerance);
+}
+
+TEST(TestRecPower, BaseNonZeroExpoentEqualZeroCheckReturnValue) {
+    long double base = -1597834777.44, exp = 0.0;
+
+
+    EXPECT_NEAR(recpower(base, exp), 1.0, tolerance);
+}
+
+TEST(TestRecPower, BaseEqualZeroExpoentEqualZeroCheckReturnValue) {
+    long double base = 0, exp = 0;
+
+
+    EXPECT_NEAR(recpower(base, exp), 1.0, tolerance);
+}
+
+TEST(TestRecPower, BaseGreaterThanZeroExpoentGreaterThanZeroCheckReturnValue) {
+    long double base = 1337.1337, exp = 13;
+
+
+    EXPECT_NEAR(recpower(base, exp), pow(base, exp), tolerance);
+}
+
+TEST(TestRecPower, BaseGreaterThanZeroExpoentLowerThanZeroCheckReturnValue) {
+    long double base = 1337.1337, exp = -13;
+
+
+    EXPECT_NEAR(recpower(base, exp), pow(base, exp), tolerance);
+}
+
+TEST(TestRecPower, BaseLowerThanZeroExpoentGreaterThanZeroCheckReturnValue) {
+    long double base = -1337.1337, exp = 13;
+
+
+    EXPECT_NEAR(recpower(base, exp), pow(base, exp), tolerance);
+}
+
+TEST(TestRecPower, BaseLowerThanZeroExpoentLowerThanZeroCheckReturnValue) {
+    long double base = -1337.1337, exp = -13;
+
+
+    EXPECT_NEAR(recpower(base, exp), pow(base, exp), tolerance);
+}
+
+#if 0
+
 #define tolerance 1e-6
 const char* const cart = "cart";
 const char* const pol = "pol";
@@ -17,11 +75,6 @@ const char* const add = "add";
 const char* const sub = "sub";
 const char* const mul = "mul";
 const char* const dvs = "dvs";
-TEST(TestCaseName, TestName) {
-    EXPECT_EQ(1, 1);
-    EXPECT_TRUE(true);
-    srand((unsigned int)time(NULL));
-}
 
 TEST(SomaCartesiana, ZeroInputsCheckReturnValue) {
     Cart x = { 0.0, 0.0 };
@@ -829,3 +882,5 @@ TEST(ComplexMultiply, S1polarS2CartesianoCheckOutputS1) {
 
     ASSERT_TRUE(ComplexNumberNear(s1_expected, s1, tolerance));
 }
+
+#endif 
